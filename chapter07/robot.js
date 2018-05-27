@@ -18,13 +18,13 @@ const roads = [
 function buildGraph(edges) {
     let graph = Object.create(null);
     function addEdge(from, to) {
-        if(graph[from] == null) {
+        if (graph[from] == null) {
             graph[from] = [to];
         } else {
             graph[from].push(to);
         }
     }
-    for(let [from, to] of edges.map(road => road.split('-'))) {
+    for (let [from, to] of edges.map(road => road.split('-'))) {
         addEdge(from, to);
         addEdge(to, from);
     }
@@ -40,12 +40,12 @@ class VillageState {
     }
 
     move(destination) {
-        if(!roadGraph[this.place].includes(destination)) {
+        if (!roadGraph[this.place].includes(destination)) {
             return this;
         } else {
             let parcels = this.parcels.map(parcel => {
-                if(parcel.place != this.place) return parcel;
-                return { place: destination, address: parcel.address }                
+                if (parcel.place != this.place) return parcel;
+                return { place: destination, address: parcel.address }
             }).filter(parcel => parcel.place != parcel.address);
             return new VillageState(destination, parcels);
         }
@@ -54,7 +54,7 @@ class VillageState {
 
 let first = new VillageState(
     "Post Office",
-    [{place: "Post Office", address: "Alice's House"}]
+    [{ place: "Post Office", address: "Alice's House" }]
 );
 
 // let next = first.move("Alice's House");
@@ -63,8 +63,8 @@ let first = new VillageState(
 // console.log(first.place);
 
 function runRobot(state, robot, memory) {
-    for(let turn = 0;; turn++) {
-        if(state.parcels.length == 0) {
+    for (let turn = 0; ; turn++) {
+        if (state.parcels.length == 0) {
             console.log(`Done in ${turn} turns`);
             break;
         }
@@ -84,7 +84,7 @@ function randomRobot(state) {
     return { direction: randomPick(roadGraph[state.place]) };
 }
 
-VillageState.random = function(parcelCount = 5) {
+VillageState.random = function (parcelCount = 5) {
     let parcels = [];
     for (let i = 0; i < parcelCount; i++) {
         let address = randomPick(Object.keys(roadGraph));
