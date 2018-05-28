@@ -208,7 +208,7 @@ purringCat.speak();
 // I am a cat and I 'PURR'
 ```
 
-###### classes
+###### Classes
 
 Prototypes can be seen as something similar to the concept of `Classes` in
 other languages where the `Class` is the blueprint that defines what methods
@@ -312,16 +312,28 @@ Property names are usually strings but tehy can also be _symbols_. Symbols can
 be created with the `Symbol` function. Symbols are a new type of primitive
 introduced in ECMAScript 6.  
 
-Another good thing about symbols is that
-
+Another good thing about symbols is that they are unique - you cannot create the
+same symbol twice - which means that they can be used as unique properties for
+objects or as constants.
 
 ###### The Iterator interface
 
+Any object that you give to a `for`/`of` loop is expected to be `iterable`. That
+means that these objects have a method named with the `Symbol.iterator` symbol.
+
+This method returns the interface `iterator`, which in turns has a method `next`,
+which returns an object with two properties `value` (holding the actual value of
+the next element) and `done` (boolean that is true when there are no more elements
+to loop through).
 
 
+###### Strict mode
 
-
-
+Strict mode - enabled by `"use strict";` at the top of a file - lets you:
+	- get an error message when you inadvertently create a global variable (forget to
+	use `let` when defining a variable)
+	- the `this` binding will hold the value `undefined` in functions that are not called
+	as methods (instead of the global scope object)
 
 
 
