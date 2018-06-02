@@ -22,7 +22,7 @@ unless(1 === 1, () => console.log("the condition is false"));
 
 ```
 unless(1 === 0, () => console.log("the condition is false"));
-// something useful
+// the condition is false
 ```
 
 ###### Rewriting the filter function
@@ -106,10 +106,19 @@ console.log(flatten([[1, 3], [5, 9], [3, 1], [9, 5]]));
 
 ###### Writing my own loop
 
-?????????????
-?????????????
- 
+```
+function loop(value, condition, update, action) {
+	do {
+		action(value);
+		value = update(value);
+	} while(condition(value));
+}
 
+loop(3, n => n > 0, n => n - 1, console.log);
+// → 3
+// → 2
+// → 1
+```
 
 
 #### Object oriented javascript
