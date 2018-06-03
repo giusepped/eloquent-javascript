@@ -345,4 +345,58 @@ Strict mode - enabled by `"use strict";` at the top of a file - lets you:
 	as methods (instead of the global scope object)
 
 
+###### Modules and CommonJS
 
+CommonJS is the most used approach to deal with modules in Javascript, it is used in Node.js.
+
+The main concept on CommonJS is a function called `require`. When you call `require` passing
+the name of the module as a parameter, this module is loaded and wrapped in a function (so
+moduels get their scope automatically). For the methods from the eternal module to be available,
+they need to be put in an `exports`.
+
+Here is a very minimal and simplified definition of `require`:
+
+```
+require.cache = Object.create(null);
+
+function require(name) {
+	if(!(name in require.cache)) {
+		let code = readFile(name);
+		let module = {exports: {}};
+		require.cache[name] = module;
+		let wrapper = Function("require, exports, module", code);
+		wrapper(require, module.exports, module);
+	}
+	return require.cache[name].exports;
+}
+```
+
+notes:
+`readFile` is just a made up function that returns the content of the file in a string format.
+`require` keeps a cache of modules that has already loaded.
+The wrapper function makes sure that `require`, `exports` and `module` are available when you
+require the module in another file.
+The `name` is interpreted as relative to the current file location when it starts with `./` or
+`../`. Otherwise, Node.js will look for an NPM package with the same name.
+
+
+###### ECMASCript or ES modules
+
+From 2015, Javascript introduced its own way of importing modules. You are still dealing with
+interfaces that provide bits of functionality but the syntax and other details are different.
+You use an `import` function to access dipendencies:
+
+```
+import ordinal from "ordinal";
+import {days, months} from "date-names";
+```
+
+They also use the `exports` keyword with the same meaning.
+
+An ES module's interface is not a single value but a set of named bindings. When there is a default
+binding, that's what you get unless you add braces around the binding name. You can rename a
+binding using the `as` keyword.
+
+Also, ES module imports happen before a module's script starts running so import declarations
+may not be made inside functions or blocks.
+These are still in the adoption phase and many projects still use CommonJS.
