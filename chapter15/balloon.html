@@ -1,0 +1,18 @@
+<!doctype html>
+
+<p id="balloon" style="font-size: 10px">🎈</p>
+
+<script>
+  // Your code here
+  let balloon = document.querySelector("#balloon");
+
+  window.addEventListener('keydown', event => {
+    let currentFontSize = balloon.style.fontSize.replace('px', '')
+    console.log('current', currentFontSize)
+    if (event.key == 'ArrowUp') {
+      balloon.style = `position: static; font-size: ${currentFontSize*1.1}px`
+    } else if (event.key == 'ArrowDown') {
+       balloon.style = `position: static; font-size: ${currentFontSize*0.9}px`
+    }
+  }) 
+</script>
