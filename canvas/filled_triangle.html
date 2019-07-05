@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Filled triangle</title>
+</head>
+
+<body>
+  <p>canvas</p>
+  <canvas></canvas>
+</body>
+<script>
+  let cx = document.querySelector('canvas').getContext('2d');
+  cx.beginPath();
+  cx.moveTo(50, 10);
+  cx.lineTo(10, 70);
+  cx.lineTo(90, 70);
+  cx.lineTo(50, 10);
+  // the following would make a NOT filled triangle
+  // cx.stroke();
+  cx.fill();
+</script>
+</html>
